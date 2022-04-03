@@ -1,12 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course {
     private String CourseID;
     private String name;
     private int NumberofCredits;
 
-    private List<Course>CourseList = new ArrayList<>();
+
 
     public Course(String courseID, String name, int NumberofCredits) {
         this.CourseID = courseID;
@@ -26,15 +23,6 @@ public class Course {
     public int getNumberofCredits() {
         return NumberofCredits;
     }
-
-    public List<Course> getCourseList() {
-        return CourseList;
-    }
-
-    public void getAllCourse(){
-        CourseList.forEach(course -> System.out.println(course.toString()));
-    }
-
 
     @Override
     public String toString() {

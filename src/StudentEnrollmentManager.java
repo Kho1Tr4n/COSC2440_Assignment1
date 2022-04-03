@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StudentEnrollmentManager implements Methods {
-    ArrayList<StudentEnrollment> StudentEnrollmentList = new ArrayList<>();
+    private ArrayList<StudentEnrollment> StudentEnrollmentList = new ArrayList<>();
+    private ArrayList<Student>studentList = new ArrayList<>();
+    private List<Course>CourseList = new ArrayList<>();
+    private Object StudentEnrollment;
+
 
     public void FileRunning(String path) throws IOException {
         String StudentID;
@@ -183,9 +187,57 @@ public class StudentEnrollmentManager implements Methods {
             }
         }
 
+    public Student IsStudentAvailable(String StudentID){
+        for (Student student: studentList){
+            if (student.getStudentID().equals(StudentID)){
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public Course IsCourseAvailable(String CourseID){
+        for (Course course: CourseList){
+            if (course.getCourseID().equals(CourseID)){
+                return course;
+            }
+        }
+        return null;
+    }
+
+    public StudentEnrollment IsSemesterAvailable(String semester){
+        for (StudentEnrollment SE: StudentEnrollmentList ){
+            if (SE.getSemester().equals(semester)){
+                return SE;
+            }
+        }
+        return null;
+    }
     @Override
     public boolean add(String StudentID, String courseID, String semester) {
-        StudentEnrollmentList.add(StudentID,courseID,semester);
+        Student student = IsStudentAvailable(StudentID);
+        Course course = IsCourseAvailable(courseID);
+        StudentEnrollment = IsSemesterAvailable(semester);
+        if (student != null || course != null || semester != null) {
+            for (StudentEnrollment SE: StudentEnrollmentList){
+                if (student.equals(SE.getStudent()) && course.equals(SE.getCourse()) && semester.equals(SE.getSemester())) {
+                    System.out.println("Enrollment is already available");
+                    return false;
+                }
+            }
+            StudentEnrollmentList.add(new StudentEnrollment(student,course,semester));
+            return true;
+        }
+        if (student == null){
+            System.out.println("Student is not available");
+        }
+
+        if(course == null){
+            System.out.println("Course is not available");
+        }
+        if (semester == null){
+            System.out.println("Semester is not valid");
+        }
         return false;
     }
 
