@@ -31,10 +31,6 @@ public class Course {
         return CourseList;
     }
 
-    public void addCourse(Course course){
-        CourseList.add(course);
-    }
-
     public void getAllCourse(){
         CourseList.forEach(course -> System.out.println(course.toString()));
     }

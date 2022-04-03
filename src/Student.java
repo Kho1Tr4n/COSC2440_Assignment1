@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student {
     private String StudentID;
     private String name;
     private String birthday;
+    List<Student>studentList = new ArrayList<>();
 
 
     public Student(String studentID, String name, String birthday) {
@@ -35,6 +39,15 @@ public class Student {
         this.birthday = birthday;
     }
 
+    public List<Student> getStudent(){
+        return studentList;
+    }
+
+    public void getAllStudent(){
+        for (Student student: studentList){
+            System.out.println(student.toString());
+        }
+    }
     @Override
     public String toString() {
         return "Student{" +
