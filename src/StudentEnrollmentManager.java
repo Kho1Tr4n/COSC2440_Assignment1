@@ -11,7 +11,6 @@ public class StudentEnrollmentManager implements Methods {
     private ArrayList<StudentEnrollment> StudentEnrollmentList = new ArrayList<>();
     private ArrayList<Student>studentList = new ArrayList<>();
     private List<Course>CourseList = new ArrayList<>();
-    private Object StudentEnrollment;
 
 
     public void FileRunning(String path) throws IOException {
@@ -56,34 +55,6 @@ public class StudentEnrollmentManager implements Methods {
     public static void main(String[] args) throws ParseException, IOException {
         StudentEnrollmentManager studentEnrollmentManager = new StudentEnrollmentManager();
         studentEnrollmentManager.FileRunning("default.csv");
-
-//        for(StudentEnrollment item : studentEnrollmentManager.StudentEnrollmentList){
-//            System.out.println(item.toString());
-//        }
-
-//        String a = studentEnrollmentManager.StudentEnrollmentList.get(0).student.getStudentID();
-//        String b = studentEnrollmentManager.StudentEnrollmentList.get(10).student.getStudentID();
-//        System.out.println(a);
-//        System.out.println(b);
-//        String sid = "s131412";
-//
-//        boolean flag = false;
-//        for(StudentEnrollment item : studentEnrollmentManager.StudentEnrollmentList) {
-//            if(item.student.getStudentID().equals(sid)){
-//                flag = true;
-//                break;
-//            }
-//        }
-//        while(!flag){
-//            System.out.println("");
-//
-//            for(StudentEnrollment item : studentEnrollmentManager.StudentEnrollmentList) {
-//                if(item.student.getStudentID().equals(sid)){
-//                    flag = true;
-//                    break;
-//                }
-//            }
-//        }
 
         boolean quit = false;
         while (!quit) {
@@ -215,24 +186,23 @@ public class StudentEnrollmentManager implements Methods {
     }
     @Override
     public boolean add(String StudentID, String courseID, String semester) {
-        Student student = IsStudentAvailable(StudentID);
-        Course course = IsCourseAvailable(courseID);
-        StudentEnrollment = IsSemesterAvailable(semester);
-        if (student != null || course != null || semester != null) {
-            for (StudentEnrollment SE: StudentEnrollmentList){
-                if (student.equals(SE.getStudent()) && course.equals(SE.getCourse()) && semester.equals(SE.getSemester())) {
+        Student st = IsStudentAvailable(StudentID);
+        Course cs = IsCourseAvailable(courseID);
+        StudentEnrollment SE = IsSemesterAvailable(semester);
+        if (st != null || cs != null || semester != null) {
+            for (StudentEnrollment SE1: StudentEnrollmentList){
+                if (st.equals(SE1.getStudent()) && cs.equals(SE1.getCourse()) && SE.equals(SE1.getSemester())) {
                     System.out.println("Enrollment is already available");
                     return false;
                 }
             }
-            StudentEnrollmentList.add(new StudentEnrollment(student,course,semester));
+            StudentEnrollmentList.add(new StudentEnrollment(st,cs,semester));
             return true;
         }
-        if (student == null){
+        if (st == null){
             System.out.println("Student is not available");
         }
-
-        if(course == null){
+        if(cs == null){
             System.out.println("Course is not available");
         }
         if (semester == null){
@@ -243,6 +213,11 @@ public class StudentEnrollmentManager implements Methods {
 
     @Override
     public boolean delete(String studentID, String courseID, String semester) {
+        StudentEnrollment SE = getOne(studentID,courseID,semester);
+        if (SE != null) {
+            StudentEnrollmentList.remove(SE);
+            return true;
+        }
         return false;
     }
 
@@ -257,6 +232,25 @@ public class StudentEnrollmentManager implements Methods {
 
     @Override
     public StudentEnrollment getOne(String StudentID, String CourseID, String semester) {
+        Student st = IsStudentAvailable(StudentID);
+        Course cs = IsCourseAvailable(CourseID);
+        StudentEnrollment SE = IsSemesterAvailable(semester);
+        if (st != null && cs != null && semester != null){
+            for (StudentEnrollment SE1: StudentEnrollmentList){
+                if (st.equals(SE1.getStudentID()) && cs.equals(SE1.getCourseID()) && SE.equals(SE1.getSemester())){
+                    return SE1;
+                }
+            }
+        }
+        if (st == null){
+            System.out.println("The student you enter is not available");
+        }
+        if (cs == null){
+            System.out.println("The course you enter is not available");
+        }
+        if (SE == null){
+            System.out.println("The semester you enter is not valid");
+        }
         return null;
     }
 
