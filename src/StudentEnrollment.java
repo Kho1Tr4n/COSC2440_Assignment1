@@ -1,3 +1,5 @@
+// Create some elements in the class
+
 public class StudentEnrollment {
     protected Student student;
     protected Course course;
@@ -8,6 +10,8 @@ public class StudentEnrollment {
         this.course = course;
         this.semester = semester;
     }
+
+    // Create get method to let other class get the data from it
 
     public Student getStudent() {
         return student;
@@ -40,6 +44,8 @@ public class StudentEnrollment {
     public String getCourseID(){
         return course.getCourseID();
     }
+
+    // Create the print-out method to print the elements in the class
 
     @Override
     public String toString() {

@@ -158,6 +158,8 @@ public class StudentEnrollmentManager implements Methods {
             }
         }
 
+    /* Create this class to check is the student that user input is available
+     * in the data or not*/
     public Student IsStudentAvailable(String StudentID){
         for (Student student: studentList){
             if (student.getStudentID().equals(StudentID)){
@@ -166,6 +168,9 @@ public class StudentEnrollmentManager implements Methods {
         }
         return null;
     }
+
+    /* Create this class to check is the course that user input is available
+     * in the data or not*/
 
     public Course IsCourseAvailable(String CourseID){
         for (Course course: CourseList){
@@ -176,6 +181,9 @@ public class StudentEnrollmentManager implements Methods {
         return null;
     }
 
+    /* Create this class to check is the semester that user input is available
+    * in the data or not*/
+
     public StudentEnrollment IsSemesterAvailable(String semester){
         for (StudentEnrollment SE: StudentEnrollmentList ){
             if (SE.getSemester().equals(semester)){
@@ -184,6 +192,8 @@ public class StudentEnrollmentManager implements Methods {
         }
         return null;
     }
+
+    // Implement from the interface Methods and override those methods
     @Override
     public boolean add(String StudentID, String courseID, String semester) {
         Student st = IsStudentAvailable(StudentID);
