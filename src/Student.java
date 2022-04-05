@@ -25,27 +25,15 @@ public class Student {
         return birthday;
     }
 
-    public void setStudentID(String studentID) {
-        StudentID = studentID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
 
     //Create to print the data in the Student class
 
     @Override
     public String toString() {
-        return "Student{" +
-                "StudentID='" + StudentID + '\'' +
+        return "StudentID='" + StudentID + '\'' +
                 ", name='" + name + '\'' +
-                ", birthday=" + birthday +
-                '}';
+                ", birthday=" + birthday
+                ;
     }
 }
 
